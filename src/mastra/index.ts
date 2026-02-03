@@ -14,6 +14,7 @@ import { PinoLogger } from '@mastra/loggers';
 import { LibSQLStore } from '@mastra/libsql';
 import { Observability, DefaultExporter, CloudExporter, SensitiveDataFilter } from '@mastra/observability';
 import { weatherWorkflow } from './workflows/weather-workflow';
+import { contentWorkflow } from './workflows/content-workflow';
 import { weatherAgent } from './agents/weather-agent';
 import { financialAgent } from './agents/financial-agent';
 import { memoryAgent } from './agents';
@@ -35,8 +36,8 @@ export const mastra = new Mastra({
   
   // WORKFLOWS: Multi-step processes from Lesson 4
   // - weatherWorkflow: Example workflow
-  // - (Your future workflows like monthlyReportWorkflow would go here)
-  workflows: { weatherWorkflow },
+  // - contentWorkflow: Content validation and enhancement workflow
+  workflows: { weatherWorkflow, contentWorkflow },
   
   // SCORERS: Quality metrics for evaluations (Lesson with evals)
   scorers: { toolCallAppropriatenessScorer, completenessScorer, translationScorer },
