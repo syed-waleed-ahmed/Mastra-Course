@@ -17,6 +17,7 @@ import { weatherWorkflow } from './workflows/weather-workflow';
 import { contentWorkflow } from './workflows/content-workflow';
 import { weatherAgent } from './agents/weather-agent';
 import { financialAgent } from './agents/financial-agent';
+import { contentAgent } from './agents/content-agent';
 import { memoryAgent } from './agents';
 import { learningAssistantAgent } from './agents/learning-assistant';
 import { toolCallAppropriatenessScorer, completenessScorer, translationScorer } from './scorers/weather-scorer';
@@ -32,7 +33,8 @@ export const mastra = new Mastra({
   //   * HackerNews MCP integration
   //   * Memory for conversation history
   //   * Commented examples: Zapier, GitHub MCPs
-  agents: { weatherAgent, financialAgent, memoryAgent, learningAssistantAgent },
+  // - contentAgent: Content analysis agent from Lesson 4
+  agents: { weatherAgent, financialAgent, contentAgent, memoryAgent, learningAssistantAgent },
   
   // WORKFLOWS: Multi-step processes from Lesson 4
   // - weatherWorkflow: Example workflow
