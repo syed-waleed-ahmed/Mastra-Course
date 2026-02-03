@@ -1,6 +1,6 @@
 import { Agent } from '@mastra/core/agent'
 import { Memory } from '@mastra/memory'
-import { LibSQLStore } from '@mastra/libsql'
+import { LibSQLStore, LibSQLVector } from '@mastra/libsql'
 import { MCPClient } from '@mastra/mcp'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -115,17 +115,29 @@ SUCCESS CRITERIA
 - Maintain user trust by ensuring data privacy and security.`,
   model: 'openai/gpt-4.1-mini',
   tools: { getTransactionsTool, ...mcpTools },
-  // MEMORY CONFIGURATION (Basic Memory)
-  // Enhanced memory is disabled until an embedder/API key is available.
+  // MEMORY CONFIGURATION (Enhanced Memory Enabled)
   memory: new Memory({
     storage: new LibSQLStore({
-      id: 'learning-memory-storage',
-      // SQLite database file for persistent memory storage
-      // Location: relative to .mastra/output directory
+      id: 'financial-memory-storage',
       url: 'file:../../memory.db',
     }),
-    // To enable semantic recall & working memory later:
-    // - Add LibSQLVector and embedder configuration
-    // - Provide OPENAI_API_KEY (or another embedder)
+    vector: new LibSQLVector({
+      id: 'financial-memory-vector',
+      url: 'file:../../vector.db',
+    }),
+    embedder: 'openai/text-embedding-3-small',
+    options: {
+      lastMessages: 20,
+      semanticRecall: {
+        topK: 3,
+        messageRange: {
+          before: 2,
+          after: 1,
+        },
+      },
+      workingMemory: {
+        enabled: true,
+      },
+    },
   }),
 })

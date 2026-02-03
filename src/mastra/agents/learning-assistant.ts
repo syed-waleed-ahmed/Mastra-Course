@@ -12,48 +12,46 @@ const learningMemory = new Memory({
     id: 'learning-memory-vector',
     url: 'file:../../vector.db', // relative path from the `.mastra/output` directory
   }),
-  // Semantic recall and working memory require an embedder/API key
-  // Uncomment when available:
-  // embedder: 'openai/text-embedding-3-small',
+  embedder: 'openai/text-embedding-3-small',
   options: {
     lastMessages: 20,
-    // semanticRecall: {
-    //   topK: 3,
-    //   messageRange: {
-    //     before: 2,
-    //     after: 1,
-    //   },
-    // },
-    // workingMemory: {
-    //   enabled: true,
-    //   template: `
-    // # Learner Profile
-    //
-    // ## Personal Info
-    // - Name:
-    // - Learning Style: [Visual, Auditory, Reading/Writing, Kinesthetic]
-    //
-    // ## Learning Journey
-    // - Current Topics:
-    //   - [Topic 1]:
-    //     - Skill Level: [Beginner, Intermediate, Advanced]
-    //     - Started: [Date]
-    //     - Goals:
-    //     - Resources:
-    //     - Progress Notes:
-    //   - [Topic 2]:
-    //     - Skill Level: [Beginner, Intermediate, Advanced]
-    //     - Started: [Date]
-    //     - Goals:
-    //     - Resources:
-    //     - Progress Notes:
-    //
-    // ## Session State
-    // - Current Focus:
-    // - Questions to Revisit:
-    // - Recommended Next Steps:
-    // `,
-    // },
+    semanticRecall: {
+      topK: 3,
+      messageRange: {
+        before: 2,
+        after: 1,
+      },
+    },
+    workingMemory: {
+      enabled: true,
+      template: `
+# Learner Profile
+
+## Personal Info
+- Name:
+- Learning Style: [Visual, Auditory, Reading/Writing, Kinesthetic]
+
+## Learning Journey
+- Current Topics:
+  - [Topic 1]:
+    - Skill Level: [Beginner, Intermediate, Advanced]
+    - Started: [Date]
+    - Goals:
+    - Resources:
+    - Progress Notes:
+  - [Topic 2]:
+    - Skill Level: [Beginner, Intermediate, Advanced]
+    - Started: [Date]
+    - Goals:
+    - Resources:
+    - Progress Notes:
+
+## Session State
+- Current Focus:
+- Questions to Revisit:
+- Recommended Next Steps:
+`,
+    },
   },
 })
 

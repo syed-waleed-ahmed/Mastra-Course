@@ -12,51 +12,41 @@ const memory = new Memory({
     id: 'learning-memory-vector',
     url: 'file:../../vector.db', // relative path from the `.mastra/output` directory
   }),
-  // Semantic recall requires an embedder and API key.
-  // Uncomment once OPENAI_API_KEY is available:
-  // embedder: 'openai/text-embedding-3-small',
+  embedder: 'openai/text-embedding-3-small',
   options: {
     lastMessages: 20, // Include the last 20 messages in context
-    // Enable semantic recall once an embedder is configured:
-    // semanticRecall: true,
-    // Advanced semantic recall configuration (requires embedder):
-    // semanticRecall: {
-    //   topK: 3,
-    //   messageRange: {
-    //     before: 2,
-    //     after: 1,
-    //   },
-    // },
-    // Working memory (requires embedder/API key in this setup):
-    // workingMemory: {
-    //   enabled: true,
-    // },
-    // Custom working memory template (requires embedder/API key):
-    // workingMemory: {
-    //   enabled: true,
-    //   template: `
-    // # User Profile
-    //
-    // ## Personal Info
-    //
-    // - Name:
-    // - Location:
-    // - Timezone:
-    //
-    // ## Preferences
-    //
-    // - Communication Style: [e.g., Formal, Casual]
-    // - Interests:
-    // - Favorite Topics:
-    //
-    // ## Session State
-    //
-    // - Current Topic:
-    // - Open Questions:
-    //   - [Question 1]
-    //   - [Question 2]
-    // `,
-    // },
+    semanticRecall: {
+      topK: 3,
+      messageRange: {
+        before: 2,
+        after: 1,
+      },
+    },
+    workingMemory: {
+      enabled: true,
+      template: `
+# User Profile
+
+## Personal Info
+
+- Name:
+- Location:
+- Timezone:
+
+## Preferences
+
+- Communication Style: [e.g., Formal, Casual]
+- Interests:
+- Favorite Topics:
+
+## Session State
+
+- Current Topic:
+- Open Questions:
+  - [Question 1]
+  - [Question 2]
+`,
+    },
   },
 })
 
@@ -69,8 +59,8 @@ export const memoryAgent = new Agent({
     When a user shares information about themselves, acknowledge it and remember it for future reference.
     If asked about something mentioned earlier in the conversation, recall it accurately.
 
-    IMPORTANT: Working memory is optional and currently disabled until an embedder is configured.
-    When enabled, store persistent user info like name, location, preferences, and interests.
+    Use your working memory to store persistent user information like name, location, preferences, and interests.
+    Check working memory before asking for information the user has already provided.
   `,
   model: 'openai/gpt-4.1-mini',
   memory: memory,
