@@ -14,7 +14,7 @@ import { PinoLogger } from '@mastra/loggers';
 import { LibSQLStore } from '@mastra/libsql';
 import { Observability, DefaultExporter, CloudExporter, SensitiveDataFilter } from '@mastra/observability';
 import { weatherWorkflow } from './workflows/weather-workflow';
-import { contentWorkflow } from './workflows/content-workflow';
+import { contentWorkflow, aiContentWorkflow, parallelAnalysisWorkflow, conditionalWorkflow } from './workflows/content-workflow';
 import { weatherAgent } from './agents/weather-agent';
 import { financialAgent } from './agents/financial-agent';
 import { contentAgent } from './agents/content-agent';
@@ -39,7 +39,10 @@ export const mastra = new Mastra({
   // WORKFLOWS: Multi-step processes from Lesson 4
   // - weatherWorkflow: Example workflow
   // - contentWorkflow: Content validation and enhancement workflow
-  workflows: { weatherWorkflow, contentWorkflow },
+  // - aiContentWorkflow: AI-enhanced content processing with agent analysis
+  // - parallelAnalysisWorkflow: Multiple parallel analyses running simultaneously
+  // - conditionalWorkflow: Conditional branching for different content types
+  workflows: { weatherWorkflow, contentWorkflow, aiContentWorkflow, parallelAnalysisWorkflow, conditionalWorkflow },
   
   // SCORERS: Quality metrics for evaluations (Lesson with evals)
   scorers: { toolCallAppropriatenessScorer, completenessScorer, translationScorer },
